@@ -1,0 +1,69 @@
+// Tim Decilveo
+// Project 3: Heap memory
+// CS 17
+// November 1, 2020
+
+// Directions:
+	// Write a program to read some numbers.
+	// The program saves the number into heap memory.
+	// The program stops when a 0 is entered
+	// Program displays the numbers in the order of input in a single line.
+	// Make sure that you print top and bottom lines with your own name with appropriate new lines.
+
+program HeapMemory;
+#include( "stdlib.hhf" )
+
+static
+	memPointer:	uns32;
+	number:		int16;
+	count:		uns8 := 0;
+
+begin HeapMemory;
+	//Printed Student Name - Project 3
+	stdout.put( "Tim Decilveo - Project 3", nl );
+	stdout.newln();
+	
+	mem.alloc(4000);		// set memory allocation to 1000 bytes
+	mov( eax, memPointer );	// set the memPointer to eax
+	
+	// Enter the first integer
+	stdout.put( "Enter a positive number, 0 to stop: ");		// Prompt the user to enter the first integer
+	stdin.get( number );										// Take in the first input by the user into variable i32
+	
+	// --------------------- WHILE LOOP ---------------------
+	while( number != 0 ) do
+	
+		inc( count );											// increment the counter
+		mov( number, [eax] );									// move number into memory [eax]
+		add( 2, eax );											// add 2 to memory location
+
+		// Enter all subsequent integers
+		stdout.put( "Enter a positive number, 0 to stop: ");	// Prompt the user to enter an additional  number
+		stdin.get( number );									// Take in the additional input by the user into variable i32
+		
+	endwhile;
+	// -------------------- END WHILE LOOP -------------------
+	
+	// --------------------- FOR LOOP ---------------------
+	for( mov( 0, cl ); cl < count; inc( cl )) do	// loop through the inputted numbers
+		sub( 2, eax );								// subtract 2 from memory location
+		mov( [eax], number );						
+		push( number );								// push the top of the stack to another stack so it becomes the bottom of the new stack
+	endfor;
+	// -------------------- END FOR LOOP -------------------
+
+	for( mov( 0, cl ); cl < count; inc( cl )) do	// loop through the new stack
+		pop( number );								// take the first number the user entered off the new stack
+		stdout.put( number, " " );					// print the number that was just popped off the stack
+	endfor;
+	// -------------------- END FOR LOOP -------------------
+
+	
+	mov( memPointer, eax );							// move memPointer into eax to release it
+	mem.free( eax );								// release eaax (memPointer) memory
+
+    stdout.newln();
+	//Printed Student Name - Project 3		
+	stdout.put( nl, "Tim Decilveo - End of Project 3", nl );
+	
+end HeapMemory;

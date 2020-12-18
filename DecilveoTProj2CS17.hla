@@ -1,0 +1,106 @@
+// Tim Decilveo
+// Project 2: Finding Total, Maximum, Minimum, Count of numbers
+// CS 17
+// October 18, 2020
+
+// Directions:
+	// Write a program to read numbers
+	// The program:
+		// counts the items read,
+		// calculates the total, the maximum and minimum of the numbers.
+	// The program stops when a 0 is entered
+	// Work with integers and negative numbers
+	// Test the program with data which are within the limits
+
+program ReadNumbers;
+#include( "stdlib.hhf" )
+
+var
+    i32:    	int32;
+	totalSum:	int32;
+	counter:	int32;
+	maxVal:		int32;
+	minVal:		int32;
+ 
+begin ReadNumbers;
+	//Printed Student Name - Project 2
+	stdout.put( "Tim Decilveo - Project 2", nl );
+	stdout.newln();
+	
+	//Initialization
+    mov( 0, i32 ); 			// Initialize i32 variable to 0
+	mov( 0, totalSum ); 	// Initialize totalSum variable to 0
+	mov( 0, counter ); 		// Initialize counter variable to 0
+	mov( 0, maxVal ); 		// Initialize maxVal variable to 0
+	
+	// Enter the first integer
+	stdout.put( "Enter a positive number, 0 to stop: "); // Prompt the user to enter the first integer
+	stdin.get( i32 );		// Take in the first input by the user into variable i32
+	mov( i32, totalSum );	// Add i32 to the totalSum varibale
+	mov( i32, maxVal );		// Set the maxVal variable to i32
+	mov( i32,  minVal );	// Set the minVal variable to i32
+	
+	// if the i32 variable inputted by the user does not equal 1, set the counter to 1
+	if( i32 != 0 ) then
+		mov( 1, counter );
+	endif;
+	
+	// --------------------- WHILE LOOP ---------------------
+	while( i32 != 0 ) do
+		// Enter all subsequent integers
+		stdout.put( "Enter a positive number, 0 to stop: ");	// Prompt the user to enter an additional number number
+		stdin.get( i32 );										// Take in the additional input by the user into variable i32
+
+		// Sum the integers entered by the user
+		mov( i32, eax );
+		add( eax, totalSum );
+
+		// Count the amount of integers entered by the user
+		if( i32 != 0 ) then		
+			mov( counter, ecx );
+			inc( ecx );
+			mov( ecx, counter );
+		endif;
+
+		// Get the maximum value entered by the user
+		if( i32 != 0 ) then
+			mov( i32, ebx );
+			if( maxVal < ebx ) then 	// If maxVal is less than ebx, move ebx into maxVal
+				mov( ebx, maxVal );
+			endif;
+		endif;
+			
+		// Get the minimum value entered by the user
+		if( i32 != 0 ) then
+			mov( i32, ebx );
+			if( minVal > ebx ) then 	// If minVal is greater than ebx, move ebx into minVal
+				mov( ebx, minVal );
+			endif;
+		endif;
+	endwhile;
+	
+	// Calculate the following from the entered numbers
+	stdout.put
+	(
+		// Total:
+		// Output the sum of the numbers entered by the user
+		nl, "Total: ", totalSum, nl,
+		
+		// Count:
+		// Output the amount of numbers entered by the user
+		"Count: ", counter, nl,
+		
+		// Maximum:
+		// Output the maximum value entered by the user
+		"Maximum: ", maxVal, nl
+		
+		// Minimum:
+		// Output the minimum value entered by the user
+		"Minimum: ", minVal, nl
+	);
+
+    stdout.newln();
+	//Printed Student Name - Project 2
+	stdout.put( "Tim Decilveo - End of Project 2", nl );
+	
+end ReadNumbers;

@@ -1,0 +1,166 @@
+// Tim Decilveo
+// Project 5: 7 Stars
+// CS 17
+// November 22, 2020
+// Directions:
+	// Write an assembly code for each of the following.
+	// Only one program for all.
+	// Initial part of code given below:
+
+program ProjectFiveSecenStars;
+#include ("stdlib.hhf");
+#include ("stdio.hhf");
+
+var
+	numOfStars:		int8;
+
+begin ProjectFiveSecenStars;
+
+	//------------------- ******* PROJECT HEADER ******* -------------------
+	stdout.put( "Tim Decilveo - Project 5 7 Stars", nl, nl );
+	//------------------- ******* END PROJECT HEADER ******* -------------------
+	
+	// Force the user to enter integer 5, 7, or 9
+	repeat
+		stdout.put( "Enter an odd integer (5 to 9): " );
+		stdin.getu8();
+	until( al == 5 || al == 7 || al == 9);
+	
+	mov( al, numOfStars );
+	
+	// -*-*-*- Shape A -*-*-*-
+	stdout.put( "A", nl );
+	// *************** FOR LOOP ***************
+	for( mov( 0, al ); al <= numOfStars; inc( al ) ) do
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < al; inc( bl )) do
+			stdout.put( "* " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+	
+	
+	// -*-*-*- Shape B -*-*-*-
+	stdout.put( nl, "B", nl );
+	dec( numOfStars );
+	// *************** FOR LOOP ***************
+	for( mov( numOfStars, al ); al > -1; dec( al ) ) do
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl <= al; inc( bl )) do
+			stdout.put( "* " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+	
+	
+	// -*-*-*- Shape C -*-*-*-
+	stdout.put( nl, "C", nl );
+	inc( numOfStars );
+	// *************** FOR LOOP ***************
+	for( mov( 0, al ); al <= numOfStars; inc( al ) ) do
+		mov( numOfStars, cl );
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < al; inc( bl ) ) do
+			stdout.put( "  " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		sub( al, cl );
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < cl; inc( bl ) ) do
+			stdout.put( "* " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+
+
+	// -*-*-*- Shape D -*-*-*-
+	stdout.put( "D" );
+	// *************** FOR LOOP ***************
+	for( mov( 0, al ); al <= numOfStars; inc( al ) ) do
+		mov( numOfStars, cl );
+		sub( al, cl );
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < cl; inc( bl ) ) do
+			stdout.put( "  " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < al; inc( bl ) ) do
+			stdout.put( "* " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+
+
+	// -*-*-*- Shape E -*-*-*-
+	stdout.put( nl, "E", nl );
+	dec( numOfStars );
+	// *************** FOR LOOP ***************
+	for( mov( 0, al ); al <= numOfStars; inc( al ) ) do
+		mov( numOfStars, cl );
+		sub( al, cl );
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < cl; inc( bl ) ) do
+			stdout.put( "  " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( "* " );
+		
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+
+
+	// -*-*-*- Shape F -*-*-*-
+	stdout.put( nl, "F", nl );
+	// *************** FOR LOOP ***************
+	for( mov( 0, al ); al <= numOfStars; inc( al ) ) do
+		// *************** FOR LOOP ***************
+		for( mov( 0, bl ); bl < al; inc( bl ) ) do
+			stdout.put( "  " );
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( "* " );
+		
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+
+
+	// -*-*-*- Shape G -*-*-*-
+	stdout.put( nl, "G", nl );
+	inc( numOfStars );
+	
+	// *************** FOR LOOP ***************
+	for( mov( 1, al ); al <= numOfStars; inc( al ) ) do	
+		mov( numOfStars, cl );
+		mov( numOfStars, dl );
+
+		sub( al, dl );
+		add(1, dl);
+
+		// *************** FOR LOOP ***************
+		for( mov( 1, bl ); bl <= cl; inc( bl ) ) do
+			if(al == bl || bl == dl) then
+				stdout.put( "* " );
+			else
+				stdout.put( "  " );
+			endif;
+		endfor;
+		// *************** END FOR LOOP ***************
+		stdout.put( nl );
+	endfor;
+	// *************** END FOR LOOP ***************
+
+	//------------------- ******* PROJECT FOOTER ******* -------------------
+	stdout.put( nl, "Tim Decilveo - End of Project 5");
+	//------------------- ******* END PROJECT FOOTER ******* -------------------
+end ProjectFiveSecenStars;

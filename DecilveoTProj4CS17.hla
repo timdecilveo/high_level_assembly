@@ -1,0 +1,85 @@
+// Tim Decilveo
+// Project 4: Selection Sort
+// CS 17
+// November 8, 2020
+// Directions:
+	// All pieces shown in previous slide must be implemented and printed.
+	// Array size must be between 15 and 19, (inclusively).
+	// Use only two digits numbers (10 99) for your array data (inclusively).
+	// Print numbers neatly aligned.
+	// Choose your own array size and your own number.
+
+
+program ProjectFourSelectionSort;
+#include ("stdlib.hhf");
+#include ("stdio.hhf");
+
+const
+	arrayData := 19;
+
+static
+	dataArray: 	uns32 [arrayData] := [
+										17, 44, 68, 77, 79,
+										19, 21, 23, 24, 27,
+										33, 36, 73, 88, 55,
+										53, 96, 51, 10
+									 ]; // array with the data
+	firstIndex: int32; 						// variable for first index
+	lastIndex: 	int32 := (arrayData - 1); 	// variable for last index
+	switchVar: 	int32;
+
+begin ProjectFourSelectionSort;
+
+	//------------------- ******* PROJECT HEADER ******* -------------------
+	stdout.put( "Tim Decilveo - Project 4 Selection Sort", nl, nl );
+	//------------------- ******* END PROJECT HEADER ******* -------------------
+	
+	stdout.put( "Selection Sort, Number of Array Elements: ", arrayData, nl, "Orginal Array Elements:", nl );
+	
+	// *************** FOR LOOP ***************
+	for( mov( 0, ebx ); ebx <= lastIndex; inc( ebx ) ) do
+	
+		stdout.put( dataArray[ebx*4]: 4 );
+		
+	endfor;
+	// *************** END FOR LOOP ***************
+	stdout.put( nl , nl , "Sorting...", nl);
+	
+	// *************** WHILE LOOP ***************
+	while ( lastIndex > 0 ) do
+
+		mov( 0, firstIndex ); // move 0 into firstIndex variable
+
+		// *************** FOR LOOP ***************
+		for ( mov( 0, eax ); eax <= lastIndex; inc( eax ) )do
+		  
+			mov( firstIndex, ebx );			// used to compare first index and the dataArray
+			mov( dataArray[ebx*4], ecx );	// used to compare first index and the dataArray
+
+			if ( dataArray[eax*4] > ecx) then
+				mov( eax, firstIndex );
+			endif;
+		endfor;
+		// *************** END FOR LOOP ***************
+
+		mov( firstIndex, ebx ); 						// move firstIndex into ebx
+		mov( lastIndex, ecx ); 							// move lastIndex into ecx
+		mov( dataArray[ecx * 4], switchVar ); 			// move the data array into the swtich variable
+		mov( dataArray[ebx * 4], dataArray[ecx * 4] );
+		mov( switchVar, dataArray[ebx * 4] );
+		dec( lastIndex );
+
+		// *************** FOR LOOP ***************
+		for( mov( 0, ebx ); ebx < arrayData; inc( ebx ) ) do
+			stdout.put( dataArray[ebx*4]: 4 );
+		endfor;
+		// *************** END FOR LOOP ***************
+		
+		stdout.put( nl );
+	endwhile;
+	// *************** END WHILE LOOP ***************
+	
+	//------------------- ******* PROJECT FOOTER ******* -------------------
+	stdout.put( nl, "Tim Decilveo - End of Project 4");
+	//------------------- ******* END PROJECT FOOTER ******* -------------------
+end ProjectFourSelectionSort;

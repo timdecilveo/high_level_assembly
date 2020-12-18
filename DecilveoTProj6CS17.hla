@@ -1,0 +1,90 @@
+// Tim Decilveo
+// Project 6: Selection Sort
+// CS 17
+// December 9, 2020
+// Directions:
+	// Utilize assignment 4 and convert the code to pure assembly
+
+program ProjectSixSelectionSort;
+#include ("stdlib.hhf");
+#include ("stdio.hhf");
+
+const
+	arrayData := 19;
+
+static
+	dataArray: 			uns32 [arrayData] := [
+										17, 44, 68, 77, 79,
+										19, 21, 23, 24, 27, 
+										33, 36, 73, 88, 55,
+										53, 96, 51, 10
+									  ]; 														// array with the data
+	firstIndex: 		int32; 																	// variable for first index
+	lastIndex: 			int32 := (arrayData - 1); 												// variable for last index
+	switchVar: 			int32;
+
+begin ProjectSixSelectionSort;
+
+	//------------------- ******* PROJECT HEADER ******* -------------------
+	stdout.put( "Tim Decilveo - Project 6 Selection Sort", nl, nl );
+	//------------------- ******* END PROJECT HEADER ******* -------------------
+	
+						stdout.put( "Selection Sort, Number of Array Elements: ", arrayData,
+									 nl, "Orginal Array Elements:", nl );
+	
+						mov( 0, ebx );															// initialize the loop
+	DisplayArray:																				// new for loop; all of the for loop code goes between here and jmp( WhileLoopOne );
+						cmp( ebx, lastIndex );													// compare ebx to lastIndex
+						jnle EndDisplayArray;													// if ebx <= lastIndex, jump to the end of the loop
+						stdout.put( dataArray[ebx*4]: 4 );										// output the original array elements
+						inc( ebx );																// increment ebx
+						jmp DisplayArray;														// jump back to the beginning of the loop
+	EndDisplayArray:																			// terminate the loop
+	
+						stdout.put( nl , nl , "Sorting...", nl);
+	
+	SelectionSortArray:	cmp( lastIndex, 0 );													// loop through while lastIndex > 0
+						jng( EndSelectionSortArray );											// end the loop if lastIndex is not > 0
+
+						mov( 0, firstIndex );													// move 0 into firstIndex variable
+						mov( 0, eax );															// initialize the loop
+	CompareIndex:
+						cmp( eax, lastIndex );													// loop through until eax is no longer <= lastIndex
+						jnle EndCompareIndex;													// end the loop if eax is no longer <= lastIndex
+						mov( firstIndex, ebx );													// used to compare first index and the dataArray
+						mov( dataArray[ebx*4], ecx );											// used to compare first index and the dataArray
+
+	IfStatementOne:
+						cmp( dataArray[eax*4], ecx );											// if dataArray[eax*4] > ecx, execute mov
+						jng EndIfStatementOne;													// end the if statement if dataArray[eax*4] is not > ecx
+						mov( eax, firstIndex );													// move eax into firstIndex
+	EndIfStatementOne:																			// terminate the if statement
+
+						inc( eax );																// increment eax
+						jmp CompareIndex;														// jump back to the top of the loop
+	EndCompareIndex:																			// terminate the loop
+
+						mov( firstIndex, ebx ); 												// move firstIndex into ebx
+						mov( lastIndex, ecx ); 													// move lastIndex into ecx
+						mov( dataArray[ecx * 4], switchVar ); 									// move the data array into the swtich variable
+						mov( dataArray[ebx * 4], dataArray[ecx * 4] );							// move dataArray[ebx * 4] into dataArray[ecx * 4]
+						mov( switchVar, dataArray[ebx * 4] );									// move switchVar into dataArray[ebx * 4]
+						dec( lastIndex );														// decrement lastIndex
+						
+						mov( 0, ebx );															// initialize the loop
+	OutputSort:
+						cmp( ebx, arrayData );													// loop through until ebx is not < arrayData
+						jnl EndOutputSort;														// end the loop if ebx is not < arrayData
+						stdout.put( dataArray[ebx*4]: 4 );										// display the sorted values
+						inc( ebx );																// increment ebx
+						jmp OutputSort;															// jump back to the top of the loop
+	EndOutputSort:																				// terminate the loop
+						
+						stdout.put( nl );
+						jmp SelectionSortArray;													// jump back to the beginning of the while loop
+	EndSelectionSortArray:																		// terminate the loop
+
+	//------------------- ******* PROJECT FOOTER ******* -------------------
+	stdout.put( nl, "Tim Decilveo - End of Project 6");
+	//------------------- ******* END PROJECT FOOTER ******* -------------------
+end ProjectSixSelectionSort;
